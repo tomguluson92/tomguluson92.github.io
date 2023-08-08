@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Cloth2Tex">
+  <meta name="keywords" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Cloth2Tex: A Customized Cloth Texture Generation Pipeline for 3D Virtual Try-On</title>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Cloth2Tex: A Customized Cloth Texture Generation Pipeline for 3D Virtual Try-On</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="">Daiheng Gao</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="">Xu Chen</a><sup>2,3</sup>,</span>
+            <span class="author-block">
+              <a href="">Xindi Zhang</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="">Qi Wang</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="">Ke Sun</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="">Bang Zhang</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="">Liefeng Bo</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="">Qixing Huang</a><sup>4</sup>,
+            </span>
+          </div>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Alibaba XR Lab,</span>
+            <span class="author-block"><sup>2</sup>ETH Zurich, Department of Computer Science,</span>
+            <span class="author-block"><sup>3</sup>Max Planck Institute for Intelligent Systems,</span>
+            <span class="author-block"><sup>4</sup>The University of Texas at Austin</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="static/document/cloth2tex.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+               <!-- Arxiv Link.
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2307.13240"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span> -->
+              <!-- Video Link.
+              <span class="link-block">
+                <a href="https://www.youtube.com/watch?v=1z-v0RSleMg&t=6s"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span> -->
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="no available"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code(coming soon)</span>
+                  </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img src="./static/images/teaser.png" alt="teaser">
+      <h2 class="subtitle has-text-centered">
+        We propose <b>Cloth2Tex</b>, a novel pipeline for converting 2D images of clothing to high-quality 3D textured meshes that can be
+draped onto 3D humans. Results of 3D textured meshes produced by our method as well as the corresponding input images are shown above.
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Fabricating and designing 3D garments has become extremely demanding with the
+increasing need for synthesizing realistic dressed persons for a variety of applications, e.g. 3D virtual try-on, digitalization of 2D clothes into 3D apparel, and cloth animation.
+            It thus necessitates a simple and straightforward pipeline to obtain high-quality texture from simple input, such as 2D reference images. Since traditional warping-based texture generation methods require a significant number of control points to be manually selected for each type of garment, which can be a time-consuming and tedious process. We propose a novel method, called <b>Cloth2Tex</b>, which eliminates the human burden in this process.
+          </p>
+          <p>
+            Cloth2Tex is a <b>self-supervised method</b> that generates texture maps with reasonable layout and structural consistency. 
+            Another key feature of Cloth2Tex is that it can be used to support high-fidelity texture inpainting. 
+            This is done by combining Cloth2Tex with a prevailing <b>latent diffusion model (LDM)</b>. 
+            We evaluate our approach both qualitatively and quantitatively and demonstrate that 
+            Cloth2Tex can generate high-quality texture maps and achieve the best visual effects in comparison to other methods.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <!-- Paper video.
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+          <iframe width="1080" height="1032" src="https://www.youtube.com/embed/1z-v0RSleMg"
+                  title="Fashion Matrix: Editing Your Photo by Just Talking" frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen></iframe>
+
+        </div>
+      </div>
+    </div> -->
+    <!--/ Paper video. -->
+
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <!-- Architecture. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Architecture</h2>
+        <div class="content has-text-justified">
+          <p>
+            Cloth2Tex is composed of two phase: (1) <b>Coarse texture generation</b> and (2) <b>Fine texture completion</b>. 
+            Where Phase I is to determine the 3D garment shape and coarse texture. We do this by registering our parametric garment meshes onto catalog images using a neural mesh renderer. The pipeline’s
+            Then Phase II is to recover fine textures from the coarse estimate of Phase I. We use image translation networks trained on large-scale data synthesized by pre-trained latent diffusion models.
+          </p>
+          <img src="static/images/method.png">
+        </div>
+      </div>
+    </div>
+
+    <!-- Pre-requirements. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h3 class="title is-4">Pre-requirement: Template Meshes</h3>
+        <div class="content has-text-justified">
+          <p>
+            For the sake of both practicality and convenience, we design cloth template mesh (with fixed topology) for common garment types:
+            (T-shirts, sweatshirts, baseball jackets, hoodies, shorts, trousers and etc).
+
+            The noteworthy thing is that we stipulate requirements of the template mesh are as follows:
+            vertices V less than 10,000, uniform mesh topology, and integrity of UV. The vertex number of all templates ranges between <b>skirt (6,116)</b> to <b>windbreaker (9,881)</b>.
+          </p>
+          <p>
+            The template meshes and corresponding UV used in <b>Cloth2Tex</b> are shown below:
+          </p>
+          <img src="static/images/all_star.png">
+          <img src="static/images/sup_all_tex.png">
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase I. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h3 class="title is-4">Phase I: Coarse Texture Generation</h3>
+        <div class="content has-text-justified">
+          <p>
+            Schematic diagram of Phase I (combining deformation graph with neural rendering).
+          </p>
+          <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+            <source src="video/phase1.mp4" type="video/mp4">
+        </video>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase II. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Phase II: Fine Texture Completion</h2>
+        <div class="content has-text-justified">
+          <p>
+            In Phase II, we have two main steps: the first one is synthetic paired data generation pipeline that built on top of
+            ControlNet, Blender and manually-crafted template meshes with sleeve-shoulder correlation blendshapes.
+          </p>
+        </div>
+        <br/>
+        <h3 class="title is-4">2.1 Texture Generation</h3>
+        <div class="content has-text-justified">
+          <p>
+            We use ControlNet in synthesizing high-quality texture maps and use it for later paired data collection.
+          </p>
+          <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+            <source src="video/phase2_1.mp4" type="video/mp4">
+        </video>
+        </div>
+        <h3 class="title is-4">2.2 Front&Back View data rendering</h3>
+        <div class="content has-text-justified">
+          <p>
+            Since Cloth2Tex needs paired reference images as input: front and back view of a garment. We use <b>Blender EEVEE</b> (Emission Only) to render 
+            the front&back view image of each garment with specified textures. 
+
+            A critical step of our approach is to perform data augmentation so that the impainting network captures invariant features instead of details
+            that differ between synthetic images and testing images, which do not generalize. To this end, we vary the blendshape parameters of the template mesh to generate 2D catalog 
+            images in different shapes and pose configurations and simulate self-occlusions, which frequently exist in reality.
+          </p>
+          <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+            <source src="video/phase2_2.mp4" type="video/mp4">
+          </video>
+        </div>
+        <h3 class="title is-4">2.3 Training Inpainting/Completion Network</h3>
+        <div class="content has-text-justified">
+          <p>
+            The final step is to train a proper inpainting or image completion network on the paired coarse-fine texture yielded in above step.
+            As shown, the best method in our task is Pix2PixHD.
+          </p>
+          <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+            <source src="video/phase2_3.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Result -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Results</h2>
+        <div class="content has-text-justified">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h3 class="title is-4">Real people Try-on</h3>
+        <div class="content has-text-justified">
+          <p>
+            Real-world people Try-on. It can be seen that the animation result is vivid and thus make Cloth2Tex suitable for future VR/AR try-on.
+          </p>
+          <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+            <source src="video/result_1.mp4" type="video/mp4">
+        </video>
+        </div>
+        <h3 class="title is-4">3D Human animation</h3>
+        <div class="content has-text-justified">
+          <p>
+            3D Animation result, we use Style3D for clothing animation. According to our survey, the animation results are eye-appealing to the general public.
+          </p>
+          <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+            <source src="video/result_2.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+
+    
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>
+      xxx
+    </code></pre>
+  </div>
+</section>
+
+
+<!-- <footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link" href="https://arxiv.org/pdf/2307.13240.pdf">
+         <!-- TODO -->
+        <!-- <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/Zheng-Chong/FashionMatric" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is modified from <a href="https://nerfies.github.io/">Nerfies</a>. Thanks for the great work!
+          </p>
+<!--          <p>-->
+<!--            Their source code is available on <a href="https://github.com/nerfies/nerfies.github.io">GitHub</a>.-->
+<!--          </p>-->
+        <!-- </div>
+      </div>
+    </div>
+  </div>
+</footer> --> --> -->
+
+</body>
+</html>
