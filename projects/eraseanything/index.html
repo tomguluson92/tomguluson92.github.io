@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Cloth2Tex">
+  <meta name="keywords" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>EraseAnything: Enabling Concept Erasure in Rectified Flow Transformers  </title>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+  <style>
+    body {
+      background: #f5f6fa;
+    }
+    .img-section {
+      margin: 40px 0 40px 0;
+      padding: 32px 24px 24px 24px;
+      border-radius: 18px;
+      border-bottom: 1px solid #e0e0e0;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+      transition: background 0.3s;
+    }
+    .img-section:nth-of-type(even) {
+      background: #f7f7f7;
+    }
+    .img-section:nth-of-type(odd) {
+      background: #fff;
+    }
+    .img-section:last-child {
+      border-bottom: none;
+    }
+    .img-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px;
+      justify-items: center;
+      margin-top: 18px;
+    }
+    .img-gallery img {
+      width: 100%;
+      max-width: 600px;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      background: #fafbfc;
+      object-fit: contain; /* 保证图片完整显示 */
+    }
+    .img-section-title {
+      text-align: center;
+      font-size: 1.35em;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 10px;
+      margin-top: 0;
+    }
+    .img-caption {
+      text-align: center;
+      color: #666;
+      font-size: 1em;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">EraseAnything: Enabling Concept Erasure in Rectified Flow Transformers
+            </h1>
+            <h4 class="title is-3 publication-title" style="color:#6e6e6e;"> ICML 2025 </h4>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><a href="">Daiheng Gao</a><sup>1,2</sup>,</span>
+              <span class="author-block"><a href="">Shilin Lu</a><sup>3</sup>,</span>
+              <span class="author-block"><a href="">Shaw Walters</a><sup>2</sup>,</span>
+              <span class="author-block"><a href="">Wenbo Zhou</a><sup>1</sup>,</span>
+              <span class="author-block"><a href="">Jiaming Chu</a><sup>4</sup>,</span>
+              <span class="author-block"><a href="">Jie Zhang</a><sup>5</sup>,</span>
+              <span class="author-block"><a href="">Bang Zhang</a><sup>6</sup>,</span>
+              <span class="author-block"><a href="">Mengxi Jia</a><sup>7</sup>,</span>
+              <span class="author-block"><a href="">Jian Zhao</a><sup>7</sup>,</span>
+              <span class="author-block"><a href="">Zhaoxin Fan</a><sup>8</sup>,</span>
+              <span class="author-block"><a href="">Weiming Zhang</a><sup>1</sup></span>
+            </div>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><sup>1</sup>USTC,</span>
+              <span class="author-block"><sup>2</sup>Eliza Labs,</span>
+              <span class="author-block"><sup>3</sup>NTU,</span>
+              <span class="author-block"><sup>4</sup>BUPT,</span>
+              <span class="author-block"><sup>5</sup>A*STAR,</span>
+              <span class="author-block"><sup>6</sup>Alibaba Tongyi lab,</span>
+              <span class="author-block"><sup>7</sup>TeleAI,</span>
+              <span class="author-block"><sup>8</sup>Beihang University</span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <!-- Arxiv Link. -->
+                <span class="link-block">
+                  <a href="https://arxiv.org/pdf/2412.20413" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+                <!-- Video Link.
+              <span class="link-block">
+                <a href="https://www.youtube.com/watch?v=1z-v0RSleMg&t=6s"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span> -->
+                <!-- Code Link. -->
+                <span class="link-block">
+                  <a href="https://github.com/HumanAIGC/Cloth2Tex"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <img src="./static/images/teaser.png" alt="teaser" style="width:70%;max-width:500px;display:block;margin:auto;">
+        <h2 class="subtitle has-text-centered">
+          We propose <b>EraseAnything</b>, a novel concept erasure method for rectified flow transformers. The results of our method 
+          demonstrate that it can effectively erase concepts from various ranges: abstract concepts, specific objects, qualitative concepts, and etc.
+        </h2>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <!-- Abstract. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              Removing unwanted concepts from large-scale text-to-image (T2I) diffusion models while maintaining their overall generative quality remains an open challenge. This difficulty is especially pronounced in emerging paradigms, such as Stable Diffusion (SD) v3 and Flux, which incorporate flow matching and transformer-based architectures. These advancements limit the transferability of existing concept-erasure techniques that were originally designed for the previous T2I paradigm (e.g., SD v1.4). In this work, we introduce EraseAnything, the first method specifically developed to address concept erasure within the latest flow-based T2I framework. We formulate concept erasure as a bi-level optimization problem, employing LoRA-based parameter tuning and an attention map regularizer to selectively suppress undesirable activations. Furthermore, we propose a self-contrastive learning strategy to ensure that removing unwanted concepts does not inadvertently harm performance on unrelated ones. Experimental results demonstrate that EraseAnything successfully fills the research gap left by earlier methods in this new T2I paradigm, achieving state-of-the-art performance across a wide range of concept erasure tasks.
+            </p>
+          </div>
+        </div>
+      </div>
+      <!--/ Abstract. -->
+
+      <!-- Paper video.
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+          <iframe width="1080" height="1032" src="https://www.youtube.com/embed/1z-v0RSleMg"
+                  title="Fashion Matrix: Editing Your Photo by Just Talking" frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen></iframe>
+
+        </div>
+      </div>
+    </div> -->
+      <!--/ Paper video. -->
+
+    </div>
+  </section>
+
+
+
+
+
+<!-- Main Figure -->
+<div class="img-section">
+  <div class="img-section-title">Main Results Comparison</div>
+  <div class="img-gallery" style="justify-content:center;">
+    <img src="./static/images/fig4.png" alt="Main Figure">
+  </div>
+  <div class="img-caption">Figure 1: Comparison with baselines.</div>
+</div>
+
+<!-- Supplementary Ablation Studies -->
+<div class="img-section">
+  <div class="img-section-title">Ablation Studies</div>
+  <div class="img-gallery">
+    <img src="./static/images/sup_ab1.jpg" alt="Ablation 1">
+    <img src="./static/images/sup_ab2.jpg" alt="Ablation 2">
+    <img src="./static/images/sup_ab3.jpg" alt="Ablation 3">
+  </div>
+  <div class="img-caption">Figure 2: EraseAnything on irrelevant concepts.</div>
+</div>
+
+<!-- Supplementary Figures -->
+<div class="img-section">
+  <div class="img-section-title">Supplementary Figures</div>
+  <div class="img-gallery">
+    <img src="./static/images/sup_fig1.png" alt="Supplementary Figure 1">
+    <img src="./static/images/sup_fig2.png" alt="Supplementary Figure 2">
+  </div>
+  <div class="img-caption">Figure 3: Basic diagram of Flux.dev/schnell, backbone of EraseAnything.</div>
+</div>
+
+<!-- LoRA Visualizations -->
+<div class="img-section">
+  <div class="img-section-title">LoRA Visualizations</div>
+  <div class="img-gallery">
+    <img src="./static/images/sup_lora_2.jpg" alt="LoRA 2">
+    <img src="./static/images/sup_lora_3.jpg" alt="LoRA 3">
+    <img src="./static/images/sup_lora_4.jpg" alt="LoRA 4">
+  </div>
+  <div class="img-caption">Figure 4: Multi-concept erasure.</div>
+</div>
+
+<!-- Additional Visualizations -->
+<div class="img-section">
+  <div class="img-section-title">Additional Visualizations</div>
+  <div class="img-gallery">
+    <img src="./static/images/sup_vis1.jpg" alt="Visualization 1">
+    <img src="./static/images/sup_vis2.jpg" alt="Visualization 2">
+  </div>
+  <div class="img-caption">Figure 5: More results.</div>
+</div>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>
+      @article{gao2024eraseanything,
+        title={EraseAnything: Enabling Concept Erasure in Rectified Flow Transformers},
+        author={Gao, Daiheng and Lu, Shilin and Walters, Shaw and Zhou, Wenbo and Chu, Jiaming and Zhang, Jie and Zhang, Bang and Jia, Mengxi and Zhao, Jian and Fan, Zhaoxin and others},
+        journal={ICML 2025},
+        year={2024}
+      }
+  </code></pre>
+  </div>
+</section>
+
+</body>
+
+</html>
