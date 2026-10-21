@@ -152,6 +152,14 @@ a:hover {
 	margin: 3px 0 0 0;
 	padding: 0;
 }
+.research-video {
+    display: block;
+    width: 100%;
+    max-width: 720px;
+    height: auto;
+    margin: 12px 0 8px;
+    background: #000;
+}
 .pub_link:link, .pub_link:visited {
     font-size: 16px;
     background: #d9e1ee;
